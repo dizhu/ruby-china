@@ -54,7 +54,7 @@ class PagesController < ApplicationController
     @page = Page.new(page_params)
     @page.user_id = current_user.id
     @page.version_enable = true
-
+    @page.editor_ids = [current_user.id]	
     if @page.save
       redirect_to page_path(@page.slug), notice: t('common.create_success')
     else

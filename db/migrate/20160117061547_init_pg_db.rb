@@ -8,7 +8,7 @@ class InitPgDb < ActiveRecord::Migration
       t.datetime "updated_at"
     end
 
-    add_index "authorizations", ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", using: :btree
+    #add_index "authorizations", ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", using: :btree
 
     create_table "comments", force: :cascade do |t|
       t.text     "body",             null: false
@@ -76,7 +76,7 @@ class InitPgDb < ActiveRecord::Migration
       t.integer  "reply_id"
       t.integer  "mentionable_id"
       t.string   "mentionable_type"
-      t.integer  "mentioned_user_ids", default: [],                 array: true
+      t.json  "mentioned_user_ids",     array: true
       t.integer  "changes_count",      default: 0,     null: false
       t.datetime "created_at"
       t.datetime "updated_at"
@@ -150,7 +150,7 @@ class InitPgDb < ActiveRecord::Migration
       t.text     "body_html"
       t.boolean  "locked",         default: false
       t.integer  "version",        default: 0,     null: false
-      t.integer  "editor_ids",     default: [],    null: false, array: true
+      t.json  "editor_ids",        null: false, array: true
       t.integer  "word_count",     default: 0,     null: false
       t.integer  "changes_cout",   default: 1,     null: false
       t.integer  "comments_count", default: 0,     null: false
@@ -174,9 +174,9 @@ class InitPgDb < ActiveRecord::Migration
       t.text     "body",                            null: false
       t.text     "body_html"
       t.integer  "state",              default: 1,  null: false
-      t.integer  "liked_user_ids",     default: [],              array: true
+      t.json  "liked_user_ids",                 array: true
       t.integer  "likes_count",        default: 0
-      t.integer  "mentioned_user_ids", default: [],              array: true
+      t.json  "mentioned_user_ids",             array: true
       t.datetime "deleted_at"
       t.datetime "created_at"
       t.datetime "updated_at"
@@ -244,9 +244,9 @@ class InitPgDb < ActiveRecord::Migration
       t.datetime "replied_at"
       t.integer  "replies_count",      default: 0,     null: false
       t.integer  "likes_count",        default: 0
-      t.integer  "follower_ids",       default: [],                 array: true
-      t.integer  "liked_user_ids",     default: [],                 array: true
-      t.integer  "mentioned_user_ids", default: [],                 array: true
+      t.json  "follower_ids",                        array: true
+      t.json  "liked_user_ids",                      array: true
+      t.json  "mentioned_user_ids",                array: true
       t.datetime "deleted_at"
       t.datetime "created_at"
       t.datetime "updated_at"
@@ -297,11 +297,11 @@ class InitPgDb < ActiveRecord::Migration
       t.integer  "topics_count",           default: 0,     null: false
       t.integer  "replies_count",          default: 0,     null: false
       t.string   "private_token"
-      t.integer  "favorite_topic_ids",     default: [],                 array: true
-      t.integer  "blocked_node_ids",       default: [],                 array: true
-      t.integer  "blocked_user_ids",       default: [],                 array: true
-      t.integer  "following_ids",          default: [],                 array: true
-      t.integer  "follower_ids",           default: [],                 array: true
+      t.json  "favorite_topic_ids",                      array: true
+      t.json  "blocked_node_ids",                        array: true
+      t.json  "blocked_user_ids",                        array: true
+      t.json  "following_ids",                           array: true
+      t.json  "follower_ids",                            array: true
     end
 
     add_index "users", ["email"], name: "index_users_on_email", using: :btree

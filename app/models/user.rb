@@ -168,7 +168,8 @@ class User < ApplicationRecord
   end
 
   # 保存用户所在城市
-  before_save :store_location
+  before_save :store_location, :init_ids_json
+
   def store_location
     if self.location_changed?
       if !location.blank?
@@ -181,6 +182,15 @@ class User < ApplicationRecord
         self.location_id = nil
       end
     end
+  end
+
+  #added by dizhu
+  def init_ids_json
+    self.favorite_topic_ids = [] if self.favorite_topic_ids.nil?
+    self.following_ids    = [] if self.following_ids.nil?
+    self.follower_ids     = [] if self.follower_ids.nil?
+    self.blocked_node_ids = [] if self.blocked_node_ids.nil?
+    self.blocked_user_ids = [] if self.blocked_user_ids.nil?
   end
 
   def update_with_password(params = {})

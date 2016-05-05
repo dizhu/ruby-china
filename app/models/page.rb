@@ -21,6 +21,7 @@ class Page < ApplicationRecord
 
   before_save :append_editor
   def append_editor
+    editor_ids = [user_id.to_i] if editor_ids == nil
     unless editor_ids.include?(user_id.to_i)
       editor_ids << user_id.to_i
     end

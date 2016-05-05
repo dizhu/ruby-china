@@ -12,7 +12,8 @@ class Location < ApplicationRecord
   def self.location_find_by_name(name)
     return nil if name.blank?
     name = name.downcase.strip
-    where('name ~* ?', name).first
+    #fixed by jiang 此处postgrelsql语法和其他处不一样～
+    where("name like '%#{name}%'").first
   end
 
   def self.location_find_or_create_by_name(name)

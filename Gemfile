@@ -15,7 +15,8 @@ gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic.git'
 gem 'jquery-turbolinks'
 gem 'dropzonejs-rails'
 
-gem 'pg'
+#gem 'pg'
+gem  'mysql2'
 
 gem 'rack-attack'
 

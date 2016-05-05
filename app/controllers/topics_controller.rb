@@ -5,6 +5,7 @@ class TopicsController < ApplicationController
   before_action :set_topic, only: [:ban, :edit, :update, :destroy, :follow, :unfollow, :suggest, :unsuggest]
 
   def index
+   
     @suggest_topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(3).to_a
 
     @topics = Topic.last_actived.without_suggest
@@ -18,6 +19,7 @@ class TopicsController < ApplicationController
     @topics = @topics.paginate(page: params[:page], per_page: 22, total_entries: 1500).to_a
 
     set_seo_meta t('menu.topics'), "#{Setting.app_name}#{t('menu.topics')}"
+    
   end
 
   def feed
@@ -133,6 +135,9 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
     @topic.user_id = current_user.id
     @topic.node_id = params[:node] || topic_params[:node_id]
+    @topic.follower_ids = []
+    @topic.liked_user_ids = []
+    @topic.mentioned_user_ids = []
 
     if @topic.save
       redirect_to(topic_path(@topic.id), notice: t('topics.create_topic_success'))

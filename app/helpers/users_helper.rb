@@ -82,6 +82,8 @@ module UsersHelper
   def block_node_tag(node)
     return '' if current_user.blank?
     return '' if node.blank?
+    puts "111111111111111111111111111111"
+    puts current_user.blocked_node_ids.class
     blocked = current_user.blocked_node_ids.include?(node.id)
     class_names = 'btn btn-default btn-sm button-block-node'
     icon = '<i class="fa fa-eye-slash"></i>'

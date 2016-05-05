@@ -8,6 +8,8 @@ class RepliesController < ApplicationController
     @reply = Reply.new(reply_params)
     @reply.topic_id = @topic.id
     @reply.user_id = current_user.id
+    @reply.liked_user_ids = []  if @reply.liked_user_ids.nil?
+    @reply.mentioned_user_ids = [] if @reply.mentioned_user_ids.nil?
 
     if @reply.save
       @replies_count = @topic.replies_count + 1
